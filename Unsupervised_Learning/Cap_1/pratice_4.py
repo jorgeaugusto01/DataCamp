@@ -21,12 +21,13 @@ fishes = pd.read_csv('../../DataSets/fishes/fishes.csv')
 speciesFishes = pd.read_csv('../../DataSets/fishes/speciesFishes.csv')
 stockMovements = pd.read_csv('../../DataSets/stocks/StockMovements.csv')
 stockMovements = stockMovements.set_index('Unnamed: 0')
-stockMovements.loc[(stockMovements['ABEV3'] ==  stockMovements['IBOVESPA']), 'Signal'] = 1
-print(stockMovements['Signal'].sum)
-stockMovements = stockMovements.T
+df =  pd.DataFrame(data=stockMovements)
+df.loc[(df['BBSE3'] == df['IBOVESPA']), 'Signal'] = 1
+df.loc[(df['BBSE3'] != df['IBOVESPA']), 'Signal'] = 0
 
-stockMovements.loc[(stockMovements['ABEV3'] ==  stockMovements['IBOVESPA']), 'Signal'] = 1
-print(stockMovements['Signal'].sum)
+print(df['Signal'].sum())
+print(df['Signal'].__len__())
+stockMovements = stockMovements.T
 
 ks = range(1, 10)
 inertias = []
@@ -169,8 +170,8 @@ normalizer = Normalizer()
 
 # Create a KMeans model with 10 clusters: kmeans
 
-kmeans = KMeans(n_clusters=10)
-labels = kmeans.fit_predict(stockMovements)
+kmeans = KMeans(n_clusters=7)
+#labels = kmeans.fit_predict(stockMovements)
 
 
 # Make a pipeline chaining normalizer and kmeans: pipeline
@@ -180,7 +181,7 @@ pipeline = make_pipeline(normalizer, kmeans)
 pipeline.fit(stockMovements)
 
 # Predict the cluster labels: labels
-#labels = pipeline.predict(stockMovements)
+labels = pipeline.predict(stockMovements)
 
 # Create a DataFrame aligning labels and companies: df
 df = pd.DataFrame({'labels': labels, 'companies': stockMovements.index})
