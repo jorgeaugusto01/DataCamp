@@ -21,7 +21,12 @@ fishes = pd.read_csv('../../DataSets/fishes/fishes.csv')
 speciesFishes = pd.read_csv('../../DataSets/fishes/speciesFishes.csv')
 stockMovements = pd.read_csv('../../DataSets/stocks/StockMovements.csv')
 stockMovements = stockMovements.set_index('Unnamed: 0')
+stockMovements.loc[(stockMovements['ABEV3'] ==  stockMovements['IBOVESPA']), 'Signal'] = 1
+print(stockMovements['Signal'].sum)
 stockMovements = stockMovements.T
+
+stockMovements.loc[(stockMovements['ABEV3'] ==  stockMovements['IBOVESPA']), 'Signal'] = 1
+print(stockMovements['Signal'].sum)
 
 ks = range(1, 10)
 inertias = []
@@ -165,7 +170,7 @@ normalizer = Normalizer()
 # Create a KMeans model with 10 clusters: kmeans
 
 kmeans = KMeans(n_clusters=10)
-labels = kmeans.fi t_predict(stockMovements)
+labels = kmeans.fit_predict(stockMovements)
 
 
 # Make a pipeline chaining normalizer and kmeans: pipeline
@@ -180,7 +185,7 @@ pipeline.fit(stockMovements)
 # Create a DataFrame aligning labels and companies: df
 df = pd.DataFrame({'labels': labels, 'companies': stockMovements.index})
 
-with pd.option_context('display.max_rows', 999, 'display.max_ columns', 70):
+with pd.option_context('display.max_rows', 999, 'display.max_columns', 100):
     # Display df sorted by cluster label
     print(df.sort_values('labels'))
 
