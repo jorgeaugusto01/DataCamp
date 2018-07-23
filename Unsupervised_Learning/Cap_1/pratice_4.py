@@ -21,7 +21,7 @@ fishes = pd.read_csv('../../DataSets/fishes/fishes.csv')
 speciesFishes = pd.read_csv('../../DataSets/fishes/speciesFishes.csv')
 stockMovements = pd.read_csv('../../DataSets/stocks/StockMovements.csv')
 stockMovements = stockMovements.set_index('Unnamed: 0')
-df =  pd.DataFrame(data=stockMovements)
+df = pd.DataFrame(data=stockMovements)
 df.loc[(df['BBSE3'] == df['IBOVESPA']), 'Signal'] = 1
 df.loc[(df['BBSE3'] != df['IBOVESPA']), 'Signal'] = 0
 
