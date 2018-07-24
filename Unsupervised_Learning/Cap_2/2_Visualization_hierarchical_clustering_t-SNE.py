@@ -3,12 +3,15 @@
 from scipy.cluster.hierarchy import linkage, dendrogram
 import matplotlib.pyplot as plt
 
+seeds = pd.read_csv('../../DataSets/seeds/seeds.csv')
+varietisSeeds = pd.read_csv('../../DataSets/seeds/varietiesSeeds.csv')
+
 # Calculate the linkage: mergings
-mergings = linkage(samples, method='complete')
+mergings = linkage(seeds, method='complete')
 
 # Plot the dendrogram, using varieties as labels
 dendrogram(mergings,
-           labels=varieties,
+           labels=varietisSeeds,
            leaf_rotation=90,
            leaf_font_size=10,
 )

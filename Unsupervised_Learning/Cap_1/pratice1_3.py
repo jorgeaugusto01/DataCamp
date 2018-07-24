@@ -1,11 +1,6 @@
 import matplotlib.pyplot as plt
-import pandas as pd
 from sklearn.cluster import KMeans
-from sklearn import datasets
-from sklearn.datasets import make_classification
 from sklearn.datasets import make_blobs
-from sklearn.datasets import make_gaussian_quantiles
-import dataset as ds
 
 #PRATICE 1
 #plt.figure(figsize=(8, 8))

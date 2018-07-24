@@ -21,9 +21,9 @@ fishes = pd.read_csv('../../DataSets/fishes/fishes.csv')
 speciesFishes = pd.read_csv('../../DataSets/fishes/speciesFishes.csv')
 stockMovements = pd.read_csv('../../DataSets/stocks/StockMovements.csv')
 stockMovements = stockMovements.set_index('Unnamed: 0')
-df = pd.DataFrame(data=stockMovements)
-df.loc[(df['BBSE3'] == df['IBOVESPA']), 'Signal'] = 1
-df.loc[(df['BBSE3'] != df['IBOVESPA']), 'Signal'] = 0
+df = stockMovements.copy()
+df.loc[(df['ELET3'] == df['IBOVESPA']), 'Signal'] = 1
+df.loc[(df['ELET3'] != df['IBOVESPA']), 'Signal'] = 0
 
 print(df['Signal'].sum())
 print(df['Signal'].__len__())
@@ -170,7 +170,7 @@ normalizer = Normalizer()
 
 # Create a KMeans model with 10 clusters: kmeans
 
-kmeans = KMeans(n_clusters=7)
+kmeans = KMeans(n_clusters=6    )
 #labels = kmeans.fit_predict(stockMovements)
 
 
