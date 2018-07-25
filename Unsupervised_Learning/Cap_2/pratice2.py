@@ -6,17 +6,17 @@
 from sklearn.manifold import TSNE
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import normalize
 
 seeds = pd.read_csv('../../DataSets/seeds/seeds.csv')
 varietisSeeds = pd.read_csv('../../DataSets/seeds/varietiesSeeds.csv')
 varietisSeedsNumbers = pd.read_csv('../../DataSets/seeds/varietiesSeedsNumbers.csv')
 stockMovements = pd.read_csv('../../DataSets/stocks/StockMovements.csv')
+stockMovements = stockMovements.set_index('Unnamed: 0')
+stockMovementsT = stockMovements.T
 
 # Create a TSNE instance: model
 model = TSNE(learning_rate=200)
-
-print(varietisSeedsNumbers['varietiesNumbers'])
-print(seeds.values)
 
 # Apply fit_transform to samples: tsne_features
 tsne_features = model.fit_transform(seeds.values)
@@ -44,7 +44,10 @@ from sklearn.manifold import TSNE
 model = TSNE(learning_rate=50)
 
 # Apply fit_transform to normalized_movements: tsne_features
+normalized_movements = normalize(stockMovementsT.values)
 tsne_features = model.fit_transform(normalized_movements)
+
+print(normalized_movements)
 
 # Select the 0th feature: xs
 #A t-SNE map of the stock market
@@ -57,6 +60,6 @@ ys = tsne_features[:,1]
 plt.scatter(xs, ys, alpha=0.5)
 
 # Annotate the points
-for x, y, company in zip(xs, ys, companies):
+for x, y, company in zip(xs, ys, stockMovementsT.index):
     plt.annotate(company, (x, y), fontsize=10, alpha=0.75)
 plt.show()

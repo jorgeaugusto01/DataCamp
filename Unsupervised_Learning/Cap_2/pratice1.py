@@ -4,7 +4,6 @@
 from scipy.cluster.hierarchy import linkage, dendrogram
 import pandas as pd
 from sklearn.preprocessing import normalize
-from scipy.cluster.hierarchy import fcluster
 import matplotlib.pyplot as plt
 
 #Hierarchical clustering of the grain data
@@ -22,9 +21,9 @@ seeds = pd.read_csv('../../DataSets/seeds/seeds.csv')
 varietisSeeds = pd.read_csv('../../DataSets/seeds/varietiesSeeds.csv')
 stockMovements = pd.read_csv('../../DataSets/stocks/StockMovements.csv')
 stockMovements = stockMovements.set_index('Unnamed: 0')
-stockMovementsT = stockMovements.T
+stockMovements = stockMovements.T
 
-print(stockMovementsT.shape)
+print(stockMovements.shape)
 
 # Calculate the linkage: mergings
 mergings = linkage(seeds, method='complete')
@@ -47,23 +46,13 @@ plt.show()
 # linkage and dendrogram have already been imported from sklearn.cluster.hierarchy, and PyPlot has been imported as plt.
 
 # Normalize the movements: normalized_movements
-normalized_movements = normalize(stockMovementsT.values)
-print(stockMovementsT.values)
+normalized_movements = normalize(stockMovements.values)
+print(stockMovements.values)
 
 # Calculate the linkage: mergings
-mergings = linkage(normalized_movements, method='complete')
+mergings = mergings = linkage(normalized_movements, method='complete')
 
 # Plot the dendrogram
-dendrogram(mergings, labels=stockMovementsT.index, leaf_rotation=90, leaf_font_size=6)
+#dendrogram(mergings, labels=stockMovements.index, leaf_rotation=90, leaf_font_size=6)
 
-plt.show()
-
-#Extracting cluster labels using fcluster
-labels = fcluster(mergings, 0.91, criterion='distance')
-print(labels)
-print(stockMovementsT.index)
-# Given a list of strings companies_names:
-pairs = pd.DataFrame({'labels': labels, 'Companies': stockMovementsT.index})
-
-with pd.option_context('display.max_rows', 999, 'display.max_columns', 100):
-    print(pairs.sort_values('labels'))
+#plt.show()
