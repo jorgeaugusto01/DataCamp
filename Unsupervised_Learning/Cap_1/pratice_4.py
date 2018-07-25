@@ -21,12 +21,9 @@ fishes = pd.read_csv('../../DataSets/fishes/fishes.csv')
 speciesFishes = pd.read_csv('../../DataSets/fishes/speciesFishes.csv')
 stockMovements = pd.read_csv('../../DataSets/stocks/StockMovements.csv')
 stockMovements = stockMovements.set_index('Unnamed: 0')
-df = stockMovements.copy()
-df.loc[(df['ELET3'] == df['IBOVESPA']), 'Signal'] = 1
-df.loc[(df['ELET3'] != df['IBOVESPA']), 'Signal'] = 0
+dfAux = stockMovements.copy()
+print(stockMovements.shape)
 
-print(df['Signal'].sum())
-print(df['Signal'].__len__())
 stockMovements = stockMovements.T
 
 ks = range(1, 10)
@@ -170,7 +167,7 @@ normalizer = Normalizer()
 
 # Create a KMeans model with 10 clusters: kmeans
 
-kmeans = KMeans(n_clusters=6    )
+kmeans = KMeans(n_clusters=10)
 #labels = kmeans.fit_predict(stockMovements)
 
 
@@ -189,6 +186,12 @@ df = pd.DataFrame({'labels': labels, 'companies': stockMovements.index})
 with pd.option_context('display.max_rows', 999, 'display.max_columns', 100):
     # Display df sorted by cluster label
     print(df.sort_values('labels'))
+
+    dfAux.loc[(dfAux['CVCB3'] == dfAux['IBOVESPA']), 'Signal'] = 1
+    dfAux.loc[(dfAux['CVCB3'] != dfAux['IBOVESPA']), 'Signal'] = 0
+
+    print(dfAux['Signal'].sum())
+    print(dfAux['Signal'].__len__())
 
 
 # Create a DataFrame aligning labels and companies: df
