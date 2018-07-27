@@ -48,7 +48,7 @@ plt.show()
 
 #PRATICE 5
 # Create a KMeans model with 3 clusters: model
-model = KMeans(n_clusters=3 )
+model = KMeans(n_clusters=3)
 
 # Use fit_predict to fit model and obtain cluster labels: labels
 #In fact, the grain samples come from a mix of 3 different grain varieties: "Kama", "Rosa" and "Canadian"

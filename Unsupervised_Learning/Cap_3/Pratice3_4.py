@@ -1,6 +1,8 @@
-#Correlated data in nature
-#You are given an array grains giving the width and length of samples of grain. You suspect that width and length will be correlated.
-#To confirm this, make a scatter plot of width vs length and measure their Pearson correlation.
+#The first principal component
+#The first principal component of the data is the direction in which the data varies the most.
+# In this exercise, your job is to use PCA to find the first principal component of the length and width measurements
+# of the grain samples, and represent it as an arrow on the scatter plot.
+#The array grains gives the length and width of the grain samples. PyPlot (plt) and PCA have already been imported for you.
 
 # Perform the necessary imports
 import matplotlib.pyplot as plt
@@ -75,4 +77,28 @@ plt.xlabel('PCA feature')
 plt.ylabel('variance')
 plt.xticks(features)
 plt.show()
+
+# Dimension reduction of the fish measurements
+# In a previous exercise, you saw that 2 was a reasonable choice for the "intrinsic dimension" of the
+# fish measurements. Now use PCA for dimensionality reduction of the fish measurements,
+# retaining only the 2 most important components.
+# The fish measurements have already been scaled for you, and are available as scaled_samples.
+# Import PCA
+
+# Import PCA
+from sklearn.decomposition import PCA
+
+# Create a PCA model with 2 components: pca
+pca = PCA(n_components=2)
+
+# Fit the PCA instance to the scaled samples
+pca.fit(fishes)
+print(fishes)
+
+# Transform the scaled samples: pca_features
+pca_features = pca.transform(fishes)
+
+# Print the shape of pca_features
+print(pca_features.shape)
+
 
