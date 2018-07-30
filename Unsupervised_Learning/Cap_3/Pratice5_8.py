@@ -17,15 +17,17 @@ documents = articles['text'].tolist()
 # Apply fit_transform to document: csr_mat
 csr_mat = tfidf.fit_transform(documents)
 
+print(csr_mat.shape)
+
 # Print result of toarray() method
-print(csr_mat.toarray())
+#print(csr_mat.toarray())
 
 # Get the words: words
 words = tfidf.get_feature_names()
-print(len(words))
+#print(len(words))
 
 # Print words
-print(words)
+#print(words)
 
 # Clustering Wikipedia part I
 # You saw in the video that TruncatedSVD is able to perform PCA on sparse arrays in csr_matrix format,
@@ -40,25 +42,29 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.cluster import KMeans
 from sklearn.pipeline import make_pipeline
 
+with pd.option_context('display.max_rows', 3000, 'display.max_columns', 3000):
+    print(articles.loc[443])
+
 # Create a TruncatedSVD instance: svd
-svd = TruncatedSVD(n_components=50)
+svd = TruncatedSVD(n_components=200)
 
 # Create a KMeans instance: kmeans
-kmeans =  KMeans(n_clusters=6)
+kmeans =  KMeans(n_clusters=4)
 
 # Create a pipeline: pipeline
 pipeline =  make_pipeline(svd, kmeans)
 
 # Fit the pipeline to articles
-pipeline.fit(articles)
-print(articles)
+pipeline.fit(csr_mat)
 
 # Calculate the cluster labels: labels
-labels = pipeline.predict(articles)
+labels = pipeline.predict(csr_mat)
 
+print(labels)
 # Create a DataFrame aligning labels and titles: df
-df = pd.DataFrame({'label': labels, 'article': titles})
+df = pd.DataFrame({'label': labels, 'article': articles['category']})
 
-# Display df sorted by cluster label
-print(df.sort_values('label'))
+with pd.option_context('display.max_rows', 3000, 'display.max_columns', 100):
+    # Display df sorted by cluster label
+    print(df.sort_values('article'))
 

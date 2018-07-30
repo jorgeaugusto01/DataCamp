@@ -7,11 +7,12 @@
 # Perform the necessary imports
 import matplotlib.pyplot as plt
 from scipy.stats import pearsonr
-import pandas as pd
+
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import Normalizer
 from sklearn.cluster import KMeans
+import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 
