@@ -31,7 +31,7 @@ print(y)
 #y = y.reshape(-1, 1)
 
 # Instantiate a lasso regressor: lasso
-lasso = Lasso(alpha=0.4, normalize=True)
+lasso = Lasso(alpha=0.5, normalize=True)
 
 # Fit the regressor to the data
 lasso.fit(X, y)

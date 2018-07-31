@@ -46,10 +46,10 @@ with pd.option_context('display.max_rows', 3000, 'display.max_columns', 3000):
     print(articles.loc[443])
 
 # Create a TruncatedSVD instance: svd
-svd = TruncatedSVD(n_components=200)
+svd = TruncatedSVD(n_components=50)
 
 # Create a KMeans instance: kmeans
-kmeans =  KMeans(n_clusters=4)
+kmeans =  KMeans(n_clusters=5)
 
 # Create a pipeline: pipeline
 pipeline =  make_pipeline(svd, kmeans)
