@@ -129,7 +129,7 @@ print("Tuned Logistic Regression Accuracy: {}".format(logreg_cv.best_score_))
 df = pd.read_csv('../../DataSets/gapminder/gapminder.csv')
 
 y = df['life'].values
-df = df.drop(columns=['life'])
+df = df.drop(columns=['life', 'Region'])
 X = (df.values)
 
 # Create train and test sets
