@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import cross_val_score
 from sklearn.linear_model import Ridge
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import Normalizer
 
 #Exploring categorical features
 # The Gapminder dataset that you worked with in previous chapters also contained a
@@ -15,11 +15,14 @@ from sklearn.preprocessing import StandardScaler
 # Read the CSV file into a DataFrame: df
 df = pd.read_csv('../../DataSets/gapminder/gapminder.csv')
 ##########WITH SEEDS#############
-scaler = StandardScaler()
-scaled_data = scaler.fit_transform(df)
 
 y = df['life'].values
+df = df.drop(columns=['life', 'Region'])
 X = (df.values)
+
+norm = Normalizer()
+scaled_data = norm.fit_transform(df)
+
 
 
 # Create a boxplot of life expectancy per region
