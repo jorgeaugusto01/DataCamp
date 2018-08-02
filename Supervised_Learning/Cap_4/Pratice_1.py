@@ -25,3 +25,16 @@ plt.show()
 # compared to Europe and Central Asia. Therefore, if you are trying to predict life expectancy,
 # it would be preferable to retain the 'Region' feature. To do this, you need to binarize it by
 # creating dummy variables, which is what you will do in this exercise.
+
+# Create dummy variables: df_region
+df_region = pd.get_dummies(df)
+
+# Print the columns of df_region
+print(df_region.columns)
+
+# Create dummy variables with drop_first=True: df_region
+df_region = pd.get_dummies(df, drop_first=True)
+
+# Print the new columns of df_region
+print(df_region.columns)
+

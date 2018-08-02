@@ -12,6 +12,8 @@
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import Ridge
+
 import pandas as pd
 import numpy as np
 
@@ -66,3 +68,17 @@ cv_scores = cross_val_score(reg, X, y, cv=5)
 print(cv_scores)
 
 print("Average 5-Fold CV Score: {}".format(np.mean(cv_scores)))
+
+#Regression with categorical features
+# Having created the dummy variables from the 'Region' feature, you can build
+# regression models as you did before. Here, you'll use ridge regression to perform 5-fold cross-validation.
+# The feature array X and target variable array y have been pre-loaded.
+
+# Instantiate a ridge regressor: ridge
+ridge = Ridge(normalize=True, alpha=0.5)
+
+# Perform 5-fold cross-validation: ridge_cv
+ridge_cv = cross_val_score(ridge, X, y, cv=5)
+
+# Print the cross-validated scores
+print(ridge_cv)
