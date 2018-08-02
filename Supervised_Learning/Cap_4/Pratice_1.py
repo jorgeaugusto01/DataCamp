@@ -1,6 +1,7 @@
 from scipy.cluster.hierarchy import linkage, dendrogram
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.model_selection import cross_val_score
 
 #Exploring categorical features
 # The Gapminder dataset that you worked with in previous chapters also contained a
@@ -37,4 +38,18 @@ df_region = pd.get_dummies(df, drop_first=True)
 
 # Print the new columns of df_region
 print(df_region.columns)
+
+#Regression with categorical features
+# Having created the dummy variables from the 'Region' feature, you can build
+# regression models as you did before. Here, you'll use ridge regression to perform 5-fold cross-validation.
+# The feature array X and target variable array y have been pre-loaded.
+
+# Instantiate a ridge regressor: ridge
+ridge = Ridge(normalize=True, alpha=0.5)
+
+# Perform 5-fold cross-validation: ridge_cv
+ridge_cv = cross_val_score(ridge, X, y, cv=5)
+
+# Print the cross-validated scores
+print(ridge_cv)
 
