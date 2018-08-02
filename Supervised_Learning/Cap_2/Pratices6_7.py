@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 df = pd.read_csv('../../DataSets/gapminder/gapminder.csv')
 
 y = df['life'].values
-df = df.drop(columns=['life'])
+df = df.drop(columns=['life', 'Region'])
 X = (df.values)
 # Create arrays for features and target variable
 

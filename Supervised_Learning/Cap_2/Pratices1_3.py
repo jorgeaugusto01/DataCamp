@@ -3,8 +3,6 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import normalize
-import matplotlib.pyplot as plt
 
 #Importing data for supervised learning
 #In this chapter, you will work with Gapminder data that we have consolidated into one CSV file

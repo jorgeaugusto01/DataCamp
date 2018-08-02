@@ -20,7 +20,6 @@
 # confusion matrix and classification report.
 
 # Import necessary modules
-from sklearn.metrics import classification_report, confusion_matrix
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split

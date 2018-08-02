@@ -11,7 +11,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 import numpy as np
 import pandas as pd
-from sklearn.metrics import confusion_matrix, classification_report
 
 
 seeds = pd.read_csv('../../DataSets/seeds/seeds.csv')
