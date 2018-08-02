@@ -7,7 +7,12 @@
 # Import TfidfVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
+from sklearn.feature_extraction import text
+stop = text.ENGLISH_STOP_WORDS
+
 articles = pd.read_csv('../../DataSets/articles/bbc-text.csv')
+pat = r'\b(?:{})\b'.format('|'.join(["the", "to", "and", "in"]))
+#articles['text'] = articles['text'].str.replace(pat, '')
 
 # Create a TfidfVectorizer: tfidf
 tfidf = TfidfVectorizer()
