@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.datasets import make_blobs
+from sklearn.preprocessing import StandardScaler
 
 #PRATICE 1
 #plt.figure(figsize=(8, 8))

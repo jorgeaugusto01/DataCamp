@@ -2,6 +2,8 @@ from scipy.cluster.hierarchy import linkage, dendrogram
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import Ridge
+from sklearn.preprocessing import StandardScaler
 
 #Exploring categorical features
 # The Gapminder dataset that you worked with in previous chapters also contained a
@@ -12,6 +14,13 @@ from sklearn.model_selection import cross_val_score
 
 # Read the CSV file into a DataFrame: df
 df = pd.read_csv('../../DataSets/gapminder/gapminder.csv')
+##########WITH SEEDS#############
+scaler = StandardScaler()
+scaled_data = scaler.fit_transform(df)
+
+y = df['life'].values
+X = (df.values)
+
 
 # Create a boxplot of life expectancy per region
 df.boxplot('life', 'Region', rot=60)
@@ -47,8 +56,9 @@ print(df_region.columns)
 # Instantiate a ridge regressor: ridge
 ridge = Ridge(normalize=True, alpha=0.5)
 
+print(df_region)
 # Perform 5-fold cross-validation: ridge_cv
-ridge_cv = cross_val_score(ridge, X, y, cv=5)
+ridge_cv = cross_val_score(ridge, df_region, y, cv=5)
 
 # Print the cross-validated scores
 print(ridge_cv)
