@@ -6,7 +6,7 @@ from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 import datetime
 
-dataset = pd.read_csv("petr4_1_2010_11_2017.csv", index_col="Date")
+dataset = pd.read_csv("..\..\DataSets\stocks\petr4_1_2010_11_2017.csv", index_col="Date")
 
 #dataset['Volume'] = dataset['Volume'].stack().str.replace(',','.').unstack()
 dataset['Volume'] = dataset['Volume'].apply(lambda x: str(x.replace(',','.')))
