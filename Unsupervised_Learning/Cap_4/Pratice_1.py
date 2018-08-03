@@ -84,3 +84,36 @@ component = components_df.iloc[4]
 
 # Print result of nlargest
 print(component.nlargest())
+
+#Which articles are similar to 'Cristiano Ronaldo'?
+#In the video, you learned how to use NMF features and the cosine similarity to find similar articles.
+# Apply this to your NMF model for popular Wikipedia articles, by finding the articles most similar to the
+# article about the footballer Cristiano Ronaldo. The NMF features you obtained earlier are available as
+# nmf_features, while titles is a list of the article titles.
+from sklearn.preprocessing import normalize
+
+# Normalize the NMF features: norm_features
+norm_features = normalize(nmf_features)
+
+# Create a DataFrame: df
+df = pd.DataFrame(norm_features, index=category)
+print(df)
+
+# Select the row corresponding to 'Cristiano Ronaldo': article
+article = df.iloc[[4],].T
+print(article)
+
+# Compute the dot products: similarities
+similarities = df.dot(article)
+print(similarities)
+
+similarities.insert(0, 'New_ID', range(0,  0 + len(df)))
+
+# Display those with the largest cosine similarity
+print(similarities.nlargest(10, 'entertainment'))
+
+with pd.option_context('display.max_rows', 3000, 'display.max_columns', 100000):
+    print(articles.iloc[[4,1853,1308,1022,120,475,852,559,569,423],])
+    df2 = pd.DataFrame(articles.iloc[[4,1853,1308,1022,120,475,852,559,569,423],])
+    df2.to_csv('df2')
+
