@@ -17,13 +17,6 @@ df = pd.read_csv('../../DataSets/gapminder/gapminder.csv')
 ##########WITH SEEDS#############
 
 y = df['life'].values
-df = df.drop(columns=['life', 'Region'])
-X = (df.values)
-
-norm = Normalizer()
-scaled_data = norm.fit_transform(df)
-
-
 
 # Create a boxplot of life expectancy per region
 df.boxplot('life', 'Region', rot=60)
