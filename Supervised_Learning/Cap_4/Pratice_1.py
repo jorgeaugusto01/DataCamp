@@ -52,9 +52,8 @@ print(df_region.columns)
 # Instantiate a ridge regressor: ridge
 ridge = Ridge(normalize=True, alpha=0.5)
 
-print(df_region)
 # Perform 5-fold cross-validation: ridge_cv
-ridge_cv = cross_val_score(ridge, df_region, y, cv=5)
+ridge_cv = cross_val_score(ridge, df_region.values, y, cv=5)
 
 # Print the cross-validated scores
 print(ridge_cv)
