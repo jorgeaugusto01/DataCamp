@@ -1,0 +1,23 @@
+Clustering
+    - KMeans
+
+Evaluating Clustering
+    - Cross Tabulation
+    - inertia_
+
+Number of Clusters
+    - How many to choose: Where inertia begins to decrease more slowly
+
+Transforming Features
+    - StandardScaler
+    - MaxAbsScaler
+    - Normalizer
+
+Plots
+    - ScatterPlots
+    - t-SNE provides great visualizations when the individual samples can be labeled.
+
+Vizualizing Hierarchies
+    - Dendogram
+        - linkage method: Distance between clusters
+        - Height on dendrogram specifies max. distance between merging clusters
