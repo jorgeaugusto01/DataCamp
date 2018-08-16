@@ -1,0 +1,45 @@
+----------------------- UNSUPERVISED LEARNING -----------------------
+Uncovering hidden patterns from unlabeled data
+
+CLUSTERING
+    - KMeans
+
+EVALUATING CLUSTERGIN
+    - Cross Tabulation
+    - inertia_
+
+NUMBER OF CLUSTERS
+    - How many to choose: Where inertia begins to decrease more slowly
+
+TRANSFORMING FEATURES
+    - StandardScaler
+    - MaxAbsScaler
+    - Normalizer
+
+PLOTS
+    - ScatterPlots
+    - t-SNE provides great visualizations when the individual samples can be labeled.
+
+VIZUALIZING HIERARCHIES
+    - Dendogram
+        - linkage method: Distance between clusters
+        - Height on dendrogram specifies max. distance between merging clusters
+
+REMENSION REDUCTION TEHINIQUES: (Remove less-informative "noise" features, Represents same data, using less features)
+    - PCA = "Principal Component Analysis"
+        - PEARSON correlation: Measures linear correlation of features (Value between -1 and 1)
+        - doesn't support CSR_MATRIX, use scikit-learn TruncatedSVD instead
+        - INTRISIC DIMENSION: number of PCA features with significant variance
+    - NMF = Non-negative matrix factorization
+        - features must be non-negative (>= 0)
+        - learns interpretable parts
+        - topics (or "themes")
+        - NMF FEATURESS: Can be used to reconstruct the samples
+
+WORD FREQUENCY ARRAY
+    - Rows represent documents, columns represent words (measure using "tf-idf")
+    - SPARSE ARRAY: Array is "sparse": most entries are zero
+    - CSR_MATRIX: remembers only the non-zero entries (saves space!)
+    - COMPONENTS: Dimension of components = dimension of samples
+    - COSINE SIMILARITY: Higher values means more similar.
+------------------------------------------------------------------------------

@@ -1,0 +1,30 @@
+----------------------- SUPERVISED LEARNING -----------------------
+Predictor variables/features and a target variable
+Libraries: SciPy, TensorFlow, Keras
+
+EDA (Exploratory data analysis)
+
+PLOTS:
+    - scatter_matrix
+
+CLASSIFICATION:
+    - k-NN
+        - Looking at the ‘k’ closest labeled data points. taking a majority vote
+        - Larger k = smoother decision boundary = less complex model
+        - Smaller k = more complex model = can lead to overfi"ing
+    - REGRESSION
+
+REGULARIZED REGRESSION (Penalizing large coefficients):
+    - RIDGE: Picking alpha here is similar to picking k in k-NN (Very high alpha: Can lead to underfi"ing)
+    - LASSO: Can be used to select important features of a dataset.
+
+CROSS-VALIDATION (fold CV)
+    - Model performance is dependent on way the data is split
+    - More folds = More computationally expensive
+
+PERFORMANCE:
+    - Accuracy:Fraction of correct predictions
+
+
+
+
