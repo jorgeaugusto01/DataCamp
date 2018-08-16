@@ -1,3 +1,4 @@
+----------------------- UNSUPERVISED LEARNING -----------------------
 Clustering
     - KMeans
 
@@ -21,3 +22,4 @@ Vizualizing Hierarchies
     - Dendogram
         - linkage method: Distance between clusters
         - Height on dendrogram specifies max. distance between merging clusters
+________________________________________________________________________
