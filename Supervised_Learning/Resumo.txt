@@ -6,6 +6,7 @@ EDA (Exploratory data analysis)
 
 PLOTS:
     - scatter_matrix
+    - ROC Curve
 
 CLASSIFICATION:
     - k-NN
@@ -13,17 +14,57 @@ CLASSIFICATION:
         - Larger k = smoother decision boundary = less complex model
         - Smaller k = more complex model = can lead to overfi"ing
     - REGRESSION
+    - LOGISTIC REGRESSION: For Binary Classification
+        - By default, logistic regression threshold = 0.5
 
 REGULARIZED REGRESSION (Penalizing large coefficients):
     - RIDGE: Picking alpha here is similar to picking k in k-NN (Very high alpha: Can lead to underfi"ing)
     - LASSO: Can be used to select important features of a dataset.
 
-CROSS-VALIDATION (fold CV)
+CROSS-VALIDATION (fold CV):
     - Model performance is dependent on way the data is split
     - More folds = More computationally expensive
 
 PERFORMANCE:
     - Accuracy:Fraction of correct predictions
+
+CLASSIFICATION METRICS (How Good is your model ?)
+    - CONFUSION MATRIX
+        - High precision: Not many real emails predicted as spam
+        - High recall: Predicted most spam emails correctly
+    - ROC CURVE
+        - Larger area under the ROC curve = better model
+
+HYPERPARAMETER TUNING:
+    - Linear regression: Choosing parameters
+    - Ridge/lasso regression: Choosing alpha
+    - k-Nearest Neighbors: Choosing n_neighbors
+    - Parameters like alpha and k: Hyperparameters
+    - Hyperparameters cannot be learned by fi!ing the model
+    - It is essential to use cross-validation
+    - GRIDSEARCHCV
+
+HOLD-OUT SET REASONING
+    - How well can the model perform on never before seen data?
+    - Using ALL data for cross-validation is not ideal
+    - Split data into training and hold-out set at the beginning
+    - Perform grid search cross-validation on training set
+    - Choose best hyperparameters and evaluate on hold-out set
+
+PREPOCESSING DATA
+    - CATEGORICAL FEATURES -> CONVERT TO DUMMY VARIABLES
+    - IMPUTER DEAL WITH MISSING VARIABLES
+    - NORMALIZING (CENTERING AND SCALING)
+    - Ways to normalize your data:
+        - Standardization: Subtract the mean and divide by variance
+
+------------------------------------------------------------------------------
+
+
+
+
+
+
 
 
 
