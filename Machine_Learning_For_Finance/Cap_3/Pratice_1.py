@@ -14,26 +14,19 @@ import talib
 import seaborn as sns
 import numpy as np
 from sklearn.tree import DecisionTreeRegressor
+import sys
+sys.path.append("/Users/jorgeaugusto01/Projetos/Python/TropaPyLibs")
+from dataDeal import csvUtil as dd
+from datetime import date
 
+start_ = date(2017, 01, 01)
+#end_ = start_ + datetime.timedelta(days=365)
+end_ = date(2018, 8, 17)
+periodo = pd.date_range(start_, end_)
 
-df1 = pd.read_csv('../../../Data/csv/Ibovespa/dailyPrices/IBOVESPA.csv')
-df2 = pd.read_csv('../../../Data/csv/Ibovespa/dailyPrices/CMIG3.csv')
-
-df1['Volume'] = df1['Volume'].str.replace(',','.')
-df2['Volume'] = df2['Volume'].str.replace(',','.')
-df1['Volume']= map(float, df1['Volume'])
-df2['Volume']= map(float, df2['Volume'])
-
-df1 = df1.set_index(df1['Date'])
-df1 = df1.drop(columns=['Date'])
-df1.index = pd.to_datetime(df1.index)
-
-df2 = df2.set_index(df2['Date'])
-df2 = df2.drop(columns=['Date'])
-df2.index = pd.to_datetime(df2.index)
-
-print(df1.head())  # examine the DataFrames
-print(df2.head())  # examine the SPY DataFrame
+#df1 = pd.read_csv('../../../Data/csv/Ibovespa/dailyPrices/IBOVESPA.csv')
+df1 = dd.get_data_frame_daily_OHLC_prices_from_csv("IBOVESPA", periodo)
+df2 = dd.get_data_frame_daily_OHLC_prices_from_csv("CMIG3", periodo)
 
 # Plot the Adj_Close columns for SPY and LNG
 df1["Close"].plot(label='IBOVESPA', legend=True)
@@ -450,3 +443,80 @@ plt.bar(x, feature_importances[sorted_index], tick_label=labels)
 plt.xticks(rotation=90)
 plt.show()
 
+
+print("##############################CAP_3##############################")
+print("----------Exerc1_CAP3--------")
+#Standardizing data
+#We need to scale our data for some models. K-nearest neighbors (KNN) and neural networks are models that usually work better with scaled data.
+#We also need to remove the variables we found were unimportant from last chapter's feature importances.
+# We'll simply index the features DataFrames to remove the day of week features with .iloc[].
+#KNN uses distances to find similar data points for predictions. If a feature is large, it outweighs small features.
+# Scaling data fixes that. Neural networks also work better with scaled data, which we'll cover soon.
+#sklearn's scale() will standardize data, which sets the mean to 0 and standard deviation to 1.
+#Once we've scaled the data, we'll check that it worked by plotting histograms of the data.
+
+from sklearn.preprocessing import scale
+
+# Remove unimportant features (weekdays)
+train_features = train_features.iloc[:, :-4]
+test_features = test_features.iloc[:, :-4]
+
+# Standardize the train and test features
+scaled_train_features = scale(train_features)
+scaled_test_features = scale(test_features)
+
+# Plot histograms of the 14-day SMA RSI before and after scaling
+f, ax = plt.subplots(nrows=2, ncols=1)
+train_features.iloc[:, 2].hist(ax=ax[0])
+ax[1].hist(scaled_train_features[:, 2])
+plt.show()
+
+#Optimize n_neighbors
+#Now that we have scaled data, we can try using a KNN model. To maximize performance, we should tune our model's hyperparameters.
+# For the k-nearest neighbors algorithm, we only have one hyperparameter: n, the number of neighbors. We set this hyperparameter
+# when we create the model with KNeighborsRegressor. The argument for the number of neighbors is n_neighbors.
+#We want to try a range of values that passes through the setting with the best performance. Usually we will start with 2 neighbors, and
+# increase until our scoring metric starts to decrease. We'll use the R2 value from the .score() method on the test set
+# (scaled_test_features and test_targets) to optimize n here. We'll use the test set scores to determine the best n.
+
+print("----------Exerc2_CAP3--------")
+from sklearn.neighbors import KNeighborsRegressor
+
+for n in range(2,12):
+    # Create and fit the KNN model
+    knn = KNeighborsRegressor(n_neighbors=n)
+
+    # Fit the model to the training data
+    knn.fit(scaled_train_features, train_targets)
+
+    # Print number of neighbors and the score to find the best value of n
+    print("n_neighbors =", n)
+    print('train, test scores')
+    print(knn.score(scaled_train_features, train_targets))
+    print(knn.score(scaled_test_features, test_targets))
+    print()  # prints a blank line
+
+
+#Evaluate KNN performance
+#We just saw a few things with our KNN scores. For one, the training scores started high and decreased with increasing n,
+# which is typical. The test set performance reached a peak at 5 though, and we will use that as our setting in the final KNN model.
+#As we have done a few times now, we will check our performance visually. This helps us see how well the model is predicting on
+# different regions of actual values. We will get predictions from our knn model using the .predict() method on our scaled features.
+# Then we'll use matplotlib's plt.scatter() to create a scatter plot of actual versus predicted values.
+# Create the model with the best-performing n_neighbors of 5
+
+print("----------Exerc2_CAP3--------")
+knn = KNeighborsRegressor(n_neighbors=5)
+
+# Fit the model
+knn.fit(scaled_train_features, train_targets)
+
+# Get predictions for train and test sets
+train_predictions = knn.predict(scaled_train_features)
+test_predictions = knn.predict(scaled_test_features)
+
+# Plot the actual vs predicted values
+plt.scatter(train_predictions, train_targets, label='train')
+plt.scatter(test_predictions, test_targets)
+plt.legend()
+plt.show()
