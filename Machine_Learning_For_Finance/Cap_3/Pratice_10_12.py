@@ -584,6 +584,7 @@ plt.scatter(test_preds, test_targets, label='test')
 plt.legend()
 plt.show()
 
+print("----------Exerc7_CAP3--------")
 #Custom loss function
 #Up to now, we've used the mean squared error as a loss function. This works fine, but with stock price
 # prediction it can be useful to implement a custom loss function. A custom loss function can help
@@ -607,5 +608,92 @@ def sign_penalty(y_true, y_pred):
 
 keras.losses.sign_penalty = sign_penalty  # enable use of loss with keras
 print(keras.losses.sign_penalty)
+
+print("----------Exerc8_CAP3--------")
+#Visualize the results
+#We've fit our model with the custom loss function, and it's time to see how it is performing.
+# We'll check the R2 values again with sklearn's r2_score() function, and we'll create a scatter
+# plot of predictions versus actual values with plt.scatter(). This will yield some interesting results!
+# Evaluate R^2 scores
+train_preds = model_2.predict(scaled_train_features)
+test_preds = model_2.predict(scaled_test_features)
+print(r2_score(train_targets, train_preds))
+print(r2_score(test_targets, test_preds))
+
+# Scatter the predictions vs actual -- this one is interesting!
+plt.scatter(train_preds, train_targets, label='train')
+plt.scatter(test_preds, test_targets, label='test')  # plot test set
+plt.legend(); plt.show()
+
+print("----------Exerc10_CAP3--------")
+#Combatting overfitting with dropout
+#A common problem with neural networks is they tend to overfit to training data.
+# What this means is the scoring metric, like R2 or accuracy, is high for the training set, but low for testing and
+# validation sets, and the model is fitting to noise in the training data.
+#We can work towards preventing overfitting by using dropout. This randomly drops some neurons during the
+# training phase, which helps prevent the net from fitting noise in the training data. keras has a Dropout
+# layer that we can use to accomplish this. We need to set the dropout rate, or fraction of connections dropped
+# during training time. This is set as a decimal between 0 and 1 in the Dropout() layer.
+#We're going to go back to the mean squared error loss function for this model.
+from keras.layers import Dropout
+
+# Create model with dropout
+model_3 = Sequential()
+model_3.add(Dense(100, input_dim=scaled_train_features.shape[1], activation='relu'))
+model_3.add(Dropout(0.2))
+model_3.add(Dense(20, activation='relu'))
+model_3.add(Dense(1, activation='linear'))
+
+# Fit model with mean squared error loss function
+model_3.compile(optimizer="adam", loss="mse")
+history = model_3.fit(scaled_train_features, train_targets, epochs=25)
+plt.plot(history.history['loss'])
+plt.title('loss:' + str(round(history.history['loss'][-1], 6)))
+plt.show()
+
+print("----------Exerc11_CAP3--------")
+#Ensembling models
+#One approach to improve predictions from machine learning models is ensembling.
+# A basic approach is to average the predictions from multiple models. A more complex approach is to feed
+# predictions of models into another model, which makes final predictions. Both approaches usually
+# improve our overall performance (as long as our individual models are good).
+# If you remember, random forests are also using ensembling of many decision trees.
+#To ensemble our neural net predictions, we'll make predictions with the 3 models we just created -- the basic model,
+# the model with the custom loss function, and the model with dropout. Then we'll combine the predictions with numpy's .hstack()
+# function, and average them across rows with np.mean(predictions, axis=1).
+
+# Make predictions from the 3 neural net models
+train_pred1 = model_1.predict(scaled_train_features)
+test_pred1 = model_1.predict(scaled_test_features)
+
+train_pred2 = model_2.predict(scaled_train_features)
+test_pred2 = model_2.predict(scaled_test_features)
+
+train_pred3 = model_3.predict(scaled_train_features)
+test_pred3 = model_3.predict(scaled_test_features)
+
+# Horizontally stack predictions and take the average across rows
+train_preds = np.mean(np.hstack((train_pred1, train_pred2, train_pred3)), axis=1)
+test_preds = np.mean(np.hstack((test_pred1, test_pred2, test_pred3)), axis=1)
+print(test_preds[-5:])
+
+
+print("----------Exerc12_CAP3--------")
+#See how the ensemble performed
+#Let's check performance of our ensembled model to see how it's doing. We should see roughly an
+# average of the R2 scores, as well as a scatter plot that is a mix of our previous models' predictions.
+# The bow-tie shape from the custom loss function model should still be a bit visible, but the edges near x=0 should be softer.
+from sklearn.metrics import r2_score
+
+# Evaluate the R^2 scores
+print(r2_score(train_targets, train_preds))
+print(r2_score(test_targets, test_preds))
+
+# Scatter the predictions vs actual -- this one is interesting!
+plt.scatter(train_preds, train_targets, label='train')
+plt.scatter(test_preds, test_targets, label='test')
+plt.legend(); plt.show()
+
+
 
 

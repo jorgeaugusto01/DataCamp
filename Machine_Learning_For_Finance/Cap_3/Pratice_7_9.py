@@ -584,6 +584,7 @@ plt.scatter(test_preds, test_targets, label='test')
 plt.legend()
 plt.show()
 
+print("----------Exerc7_CAP3--------")
 #Custom loss function
 #Up to now, we've used the mean squared error as a loss function. This works fine, but with stock price
 # prediction it can be useful to implement a custom loss function. A custom loss function can help
@@ -607,5 +608,21 @@ def sign_penalty(y_true, y_pred):
 
 keras.losses.sign_penalty = sign_penalty  # enable use of loss with keras
 print(keras.losses.sign_penalty)
+
+print("----------Exerc8_CAP3--------")
+#Visualize the results
+#We've fit our model with the custom loss function, and it's time to see how it is performing.
+# We'll check the R2 values again with sklearn's r2_score() function, and we'll create a scatter
+# plot of predictions versus actual values with plt.scatter(). This will yield some interesting results!
+# Evaluate R^2 scores
+train_preds = model_2.predict(scaled_train_features)
+test_preds = model_2.predict(scaled_test_features)
+print(r2_score(train_targets, train_preds))
+print(r2_score(test_targets, test_preds))
+
+# Scatter the predictions vs actual -- this one is interesting!
+plt.scatter(train_preds, train_targets, label='train')
+plt.scatter(test_preds, test_targets, label='test')  # plot test set
+plt.legend(); plt.show()
 
 
