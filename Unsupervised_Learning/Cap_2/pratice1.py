@@ -17,18 +17,23 @@ import matplotlib.pyplot as plt
 # Perform the necessary imports
 
 
-seeds = pd.read_csv('../../DataSets/seeds/seeds.csv')
-varietisSeeds = pd.read_csv('../../DataSets/seeds/varietiesSeeds.csv')
-stockMovements = pd.read_csv('../../DataSets/stocks/StockMovements.csv')
-stockMovements = stockMovements.set_index('Unnamed: 0')
-stockMovements = stockMovements.T
+seeds = pd.read_csv('C:\Projetos\Python\DataCamp\DataSets\seeds\seeds.csv')
+varietisSeeds = pd.read_csv('C:\Projetos\Python\DataCamp\DataSets\seeds\\varietiesSeeds.csv')
+stockMovements = pd.read_csv('C:\Projetos\Python\precos_normalizados.csv').iloc[2:]
 
-print(stockMovements.shape)
+stockMovements_values = stockMovements[stockMovements.columns[1:]]
+stockMovements_cias = stockMovements[stockMovements.columns[0:1]]
 
+
+#stockMovements = stockMovements[stockMovements.columns[0:1]].values
+#cias = stockMovements[stockMovements.columns[1:]].values    
+#stockMovements = stockMovements.set_index('Unnamed: 0')
+#stockMovements = stockMovements.T
+
+print(seeds)
 # Calculate the linkage: mergings
 mergings = linkage(seeds, method='complete')
 print(mergings)
-
 print(seeds.values)
 
 print(varietisSeeds.values)
@@ -46,13 +51,13 @@ plt.show()
 # linkage and dendrogram have already been imported from sklearn.cluster.hierarchy, and PyPlot has been imported as plt.
 
 # Normalize the movements: normalized_movements
-normalized_movements = normalize(stockMovements.values)
-print(stockMovements.values)
+#normalized_movements = normalize(stockMovements.values)
+
 
 # Calculate the linkage: mergings
-mergings = mergings = linkage(normalized_movements, method='complete')
+mergings = linkage(stockMovements_values, method='complete')
 
 # Plot the dendrogram
-#dendrogram(mergings, labels=stockMovements.index, leaf_rotation=90, leaf_font_size=6)
+dendrogram(mergings, labels=stockMovements_cias.values, leaf_rotation=90, leaf_font_size=6)
 
-#plt.show()
+plt.show()

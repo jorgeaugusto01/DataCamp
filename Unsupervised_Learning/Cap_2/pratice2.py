@@ -8,12 +8,31 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import normalize
 
-seeds = pd.read_csv('../../DataSets/seeds/seeds.csv')
-varietisSeeds = pd.read_csv('../../DataSets/seeds/varietiesSeeds.csv')
-varietisSeedsNumbers = pd.read_csv('../../DataSets/seeds/varietiesSeedsNumbers.csv')
-stockMovements = pd.read_csv('../../DataSets/stocks/StockMovements.csv')
-stockMovements = stockMovements.set_index('Unnamed: 0')
-stockMovementsT = stockMovements.T
+seeds = pd.read_csv('C:\Projetos\Python\DataCamp\DataSets\seeds\\seeds.csv')
+varietisSeeds = pd.read_csv('C:\Projetos\Python\DataCamp\DataSets\seeds\\varietiesSeeds.csv')
+
+varietisSeedsNumbers = pd.read_csv('C:\Projetos\Python\DataCamp\DataSets\seeds\\varietiesSeedsNumbers.csv')
+stockMovements = pd.read_csv('C:\Projetos\Python\precos_normalizados.csv').iloc[2:]
+    
+stockMovements_values = stockMovements[stockMovements.columns[1:]]
+stockMovements_cias = stockMovements[stockMovements.columns[0:1]]
+
+transposed = stockMovements.T
+
+
+df = pd.DataFrame(columns=stockMovements_cias.T, data=stockMovements_values.T)
+
+
+
+print(pd.DataFrame(columns=stockMovements_cias.T[stockMovements_cias.T.columns[1:]].values, data=stockMovements_values.values()))
+
+teste.corr()
+
+sum_corr = teste.corr().sum().sort_values(ascending=True).index.values
+plt.figure(figsize=(13, 8))
+#sns.heatmap(correlation(pos_list), annot=True, cmap=”Greens”);
+
+
 
 # Create a TSNE instance: model
 model = TSNE(learning_rate=200)
@@ -41,13 +60,13 @@ plt.show()
 from sklearn.manifold import TSNE
 
 # Create a TSNE instance: model
-model = TSNE(learning_rate=50)
+model = TSNE(learning_rate=50, random_state=17)
 
 # Apply fit_transform to normalized_movements: tsne_features
-normalized_movements = normalize(stockMovementsT.values)
-tsne_features = model.fit_transform(normalized_movements)
+#normalized_movements = normalize(stockMovementsT.values)
+tsne_features = model.fit_transform(stockMovements_values)
 
-print(normalized_movements)
+print(stockMovements_values)
 
 # Select the 0th feature: xs
 #A t-SNE map of the stock market
@@ -56,10 +75,11 @@ xs = tsne_features[:,0]
 # Select the 1th feature: ys
 ys = tsne_features[:,1]
 
+
 # Scatter plot
-plt.scatter(xs, ys, alpha=0.5)
+plt.scatter(xs, ys, alpha=0.5, edgecolor='none', s=40, cmap=plt.cm.get_cmap('nipy_spectral', 10))
 
 # Annotate the points
-for x, y, company in zip(xs, ys, stockMovementsT.index):
+for x, y, company in zip(xs, ys, stockMovements_cias.values):
     plt.annotate(company, (x, y), fontsize=10, alpha=0.75)
 plt.show()
