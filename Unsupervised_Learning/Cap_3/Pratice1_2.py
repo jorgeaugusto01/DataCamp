@@ -8,11 +8,11 @@ from scipy.stats import pearsonr
 import pandas as pd
 import matplotlib.pyplot as plt
 
-seeds = pd.read_csv('../../DataSets/seeds/seeds.csv')
-varietisSeeds = pd.read_csv('../../DataSets/seeds/varietiesSeeds.csv')
-fishes = pd.read_csv('../../DataSets/fishes/fishes.csv')
-speciesFishes = pd.read_csv('../../DataSets/fishes/speciesFishes.csv')
-stockMovements = pd.read_csv('../../DataSets/stocks/StockMovements.csv')
+seeds = pd.read_csv('DataCamp/DataSets/seeds/seeds.csv')
+varietisSeeds = pd.read_csv('DataCamp/DataSets/seeds/varietiesSeeds.csv')
+fishes = pd.read_csv('DataCamp/DataSets/fishes/fishes.csv')
+speciesFishes = pd.read_csv('DataCamp/DataSets/fishes/speciesFishes.csv')
+stockMovements = pd.read_csv('DataCamp/DataSets/stocks/StockMovements.csv')
 stockMovements = stockMovements.set_index('Unnamed: 0')
 grains = pd.DataFrame()
 grains.insert(loc=0, column="Width", value=seeds["width of kernel"].values)

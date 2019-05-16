@@ -8,30 +8,24 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import normalize
 
-seeds = pd.read_csv('C:\Projetos\Python\DataCamp\DataSets\seeds\\seeds.csv')
-varietisSeeds = pd.read_csv('C:\Projetos\Python\DataCamp\DataSets\seeds\\varietiesSeeds.csv')
+seeds = pd.read_csv('DataCamp\DataSets\seeds\\seeds.csv')
+varietisSeeds = pd.read_csv('DataCamp\DataSets\seeds\\varietiesSeeds.csv')
 
-varietisSeedsNumbers = pd.read_csv('C:\Projetos\Python\DataCamp\DataSets\seeds\\varietiesSeedsNumbers.csv')
-stockMovements = pd.read_csv('C:\Projetos\Python\precos_normalizados.csv').iloc[2:]
+varietisSeedsNumbers = pd.read_csv('DataCamp\DataSets\seeds\\varietiesSeedsNumbers.csv')
+#stockMovements = pd.read_csv('precos_normalizados.csv').iloc[2:]
+stockMovements = pd.read_csv('sumario_15.csv').iloc[2:].set_index(['cod_neg']).join(pd.read_csv('sumario_30.csv').iloc[2:].set_index(['cod_neg']), rsuffix='30').join(pd.read_csv('sumario_60.csv').iloc[2:].set_index(['cod_neg']), rsuffix='60').join(pd.read_csv('sumario_120.csv').iloc[2:].set_index(['cod_neg']), rsuffix='120').join(pd.read_csv('sumario_365.csv').iloc[2:].set_index(['cod_neg']), rsuffix='365')
+stockMovements = stockMovements.reset_index()
     
 stockMovements_values = stockMovements[stockMovements.columns[1:]]
 stockMovements_cias = stockMovements[stockMovements.columns[0:1]]
 
-transposed = stockMovements.T
+#print(pd.DataFrame(columns=stockMovements_cias.T[stockMovements_cias.T.columns[1:]].values, data=stockMovements_values.values()))
 
+#teste.corr()
 
-df = pd.DataFrame(columns=stockMovements_cias.T, data=stockMovements_values.T)
-
-
-
-print(pd.DataFrame(columns=stockMovements_cias.T[stockMovements_cias.T.columns[1:]].values, data=stockMovements_values.values()))
-
-teste.corr()
-
-sum_corr = teste.corr().sum().sort_values(ascending=True).index.values
-plt.figure(figsize=(13, 8))
+#sum_corr = teste.corr().sum().sort_values(ascending=True).index.values
+#plt.figure(figsize=(13, 8))
 #sns.heatmap(correlation(pos_list), annot=True, cmap=”Greens”);
-
 
 
 # Create a TSNE instance: model

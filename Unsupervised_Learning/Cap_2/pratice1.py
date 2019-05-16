@@ -38,7 +38,7 @@ print(seeds.values)
 
 print(varietisSeeds.values)
 # Plot the dendrogram, using varieties as labels
-dendrogram(mergings, leaf_rotation=90, leaf_font_size=5, labels=varietisSeeds.values)
+dendrogram(mergings, leaf_rotation=90, leaf_font_size=5, labels=varietisSeeds.values) 
 
 plt.show()
 
