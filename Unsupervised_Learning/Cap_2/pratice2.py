@@ -12,13 +12,14 @@ seeds = pd.read_csv('DataCamp\DataSets\seeds\\seeds.csv')
 varietisSeeds = pd.read_csv('DataCamp\DataSets\seeds\\varietiesSeeds.csv')
 
 varietisSeedsNumbers = pd.read_csv('DataCamp\DataSets\seeds\\varietiesSeedsNumbers.csv')
+stockMovements = pd.read_csv('portfolio_equity_curve.csv').iloc[2:]
 #stockMovements = pd.read_csv('precos_normalizados.csv').iloc[2:]
-stockMovements = pd.read_csv('sumario_15.csv').iloc[2:].set_index(['cod_neg']).join(pd.read_csv('sumario_30.csv').iloc[2:].set_index(['cod_neg']), rsuffix='30').join(pd.read_csv('sumario_60.csv').iloc[2:].set_index(['cod_neg']), rsuffix='60').join(pd.read_csv('sumario_120.csv').iloc[2:].set_index(['cod_neg']), rsuffix='120').join(pd.read_csv('sumario_365.csv').iloc[2:].set_index(['cod_neg']), rsuffix='365')
+#stockMovements = pd.read_csv('sumario_15.csv').iloc[2:].set_index(['cod_neg']).join(pd.read_csv('sumario_30.csv').iloc[2:].set_index(['cod_neg']), rsuffix='30').join(pd.read_csv('sumario_60.csv').iloc[2:].set_index(['cod_neg']), rsuffix='60').join(pd.read_csv('sumario_120.csv').iloc[2:].set_index(['cod_neg']), rsuffix='120').join(pd.read_csv('sumario_365.csv').iloc[2:].set_index(['cod_neg']), rsuffix='365')
 stockMovements = stockMovements.reset_index()
 stockMovements = stockMovements.fillna(0)
     
-stockMovements_values = stockMovements[stockMovements.columns[1:]]
-stockMovements_cias = stockMovements[stockMovements.columns[0:1]]
+stockMovements_values = stockMovements[stockMovements.columns[2:]]
+stockMovements_cias = stockMovements[stockMovements.columns[1:2]]
 
 #print(pd.DataFrame(columns=stockMovements_cias.T[stockMovements_cias.T.columns[1:]].values, data=stockMovements_values.values()))
 
