@@ -19,7 +19,10 @@ import matplotlib.pyplot as plt
 
 seeds = pd.read_csv('C:\Projetos\Python\DataCamp\DataSets\seeds\seeds.csv')
 varietisSeeds = pd.read_csv('C:\Projetos\Python\DataCamp\DataSets\seeds\\varietiesSeeds.csv')
-stockMovements = pd.read_csv('C:\Projetos\Python\precos_normalizados.csv').iloc[2:]
+#stockMovements = pd.read_csv('C:\Projetos\Python\precos_normalizados.csv').iloc[2:]
+stockMovements = pd.read_csv('sumario_15.csv').iloc[2:].set_index(['cod_neg']).join(pd.read_csv('sumario_30.csv').iloc[2:].set_index(['cod_neg']), rsuffix='30').join(pd.read_csv('sumario_60.csv').iloc[2:].set_index(['cod_neg']), rsuffix='60').join(pd.read_csv('sumario_120.csv').iloc[2:].set_index(['cod_neg']), rsuffix='120').join(pd.read_csv('sumario_365.csv').iloc[2:].set_index(['cod_neg']), rsuffix='365')
+stockMovements = stockMovements.reset_index()
+stockMovements = stockMovements.fillna(0)
 
 stockMovements_values = stockMovements[stockMovements.columns[1:]]
 stockMovements_cias = stockMovements[stockMovements.columns[0:1]]
@@ -39,6 +42,7 @@ print(seeds.values)
 print(varietisSeeds.values)
 # Plot the dendrogram, using varieties as labels
 dendrogram(mergings, leaf_rotation=90, leaf_font_size=5, labels=varietisSeeds.values) 
+
 
 plt.show()
 
