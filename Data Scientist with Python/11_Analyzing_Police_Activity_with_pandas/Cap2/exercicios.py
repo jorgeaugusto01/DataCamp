@@ -92,3 +92,19 @@ print(ri.groupby(['driver_gender', 'violation']).search_conducted.mean())
 
 # Reverse the ordering to group by violation before gender
 print(ri.groupby(['violation', 'driver_gender']).search_conducted.mean())
+
+'''
+Counting protective frisks
+During a vehicle search, the police officer may pat down the driver to check if they have a weapon. This is known as a "protective frisk."
+
+In this exercise, you'll first check to see how many times "Protective Frisk" was the only search type. Then, you'll use a string method to locate all instances in which the driver was frisked.
+'''
+
+# Create a DataFrame of stops in which a search was conducted
+searched = ri[ri['search_conducted'] == True]
+
+# Calculate the overall frisk rate by taking the mean of 'frisk'
+print(searched.frisk.mean())
+
+# Calculate the frisk rate for each gender
+print(searched.groupby('driver_gender').frisk.mean())
