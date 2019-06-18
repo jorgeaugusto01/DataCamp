@@ -84,4 +84,28 @@ The state of Rhode Island is broken into six police districts, also known as zon
 In this exercise, you'll create a frequency table to determine how many violations of each type took place in each of the six zones. Then, you'll filter the table to focus on the "K" zones, which you'll examine further in the next exercise.
 '''
 
+# Create a frequency table of districts and violations
+print(pd.crosstab(ri.district, ri.violation))
 
+# Save the frequency table as 'all_zones'
+all_zones = pd.crosstab(ri.district, ri.violation)
+
+# Select rows 'Zone K1' through 'Zone K3'
+print(all_zones.loc['Zone K1':'Zone K3'])
+
+# Save the smaller table as 'k_zones'
+k_zones = all_zones.loc['Zone K1':'Zone K3']
+
+'''
+06
+Plotting violations by district
+Now that you've created a frequency table focused on the "K" zones, you'll visualize the data to help you compare what violations are being caught in each zone.
+
+First you'll create a bar plot, which is an appropriate plot type since you're comparing categorical data. Then you'll create a stacked bar plot in order to get a slightly different look at the data. Which plot do you find to be more insightful?
+'''
+
+# Create a stacked bar plot of 'k_zones'
+k_zones.plot(kind='bar', stacked=True)
+
+# Display the plot
+plt.show()
