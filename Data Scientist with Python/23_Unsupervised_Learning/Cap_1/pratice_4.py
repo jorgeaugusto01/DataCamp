@@ -15,11 +15,11 @@ import matplotlib.pyplot as plt
 #This dataset was sourced from the UCI Machine Learning Repository.
 #Choose an "elbow" in the inertia plot
 
-seeds = pd.read_csv('../../DataSets/seeds/seeds.csv')
-varietisSeeds = pd.read_csv('../../DataSets/seeds/varietiesSeeds.csv')
-fishes = pd.read_csv('../../DataSets/fishes/fishes.csv')
-speciesFishes = pd.read_csv('../../DataSets/fishes/speciesFishes.csv')
-stockMovements = pd.read_csv('../../DataSets/stocks/StockMovements.csv')
+seeds = pd.read_csv('/Users/jorge/Projetos/Python/DataCamp/DataSets/seeds/seeds.csv')
+varietisSeeds = pd.read_csv('/Users/jorge/Projetos/Python/DataCamp/DataSets/seeds/varietiesSeeds.csv')
+fishes = pd.read_csv('/Users/jorge/Projetos/Python/DataCamp/DataSets/fishes/fishes.csv')
+speciesFishes = pd.read_csv('/Users/jorge/Projetos/Python/DataCamp/DataSetsfishes/speciesFishes.csv')
+stockMovements = pd.read_csv('/Users/jorge/Projetos/Python/DataCamp/DataSetsstocks/StockMovements.csv')
 stockMovements = stockMovements.set_index('Unnamed: 0')
 dfAux = stockMovements.copy()
 print(stockMovements.shape)
