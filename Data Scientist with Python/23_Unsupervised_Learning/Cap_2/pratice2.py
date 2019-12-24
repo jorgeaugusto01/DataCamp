@@ -12,7 +12,7 @@ seeds = pd.read_csv('DataCamp/DataSets/seeds/seeds.csv')
 varietisSeeds = pd.read_csv('DataCamp/DataSets/seeds/varietiesSeeds.csv')
 
 varietisSeedsNumbers = pd.read_csv('DataCamp/DataSets/seeds/varietiesSeedsNumbers.csv')
-stockMovements = pd.read_csv('Financeiro _beta_corr_cias.csv').iloc[2:]
+stockMovements = pd.read_csv('Financeiro_beta_corr_cias.csv').iloc[2:]
 #stockMovements = pd.read_csv('precos_normalizados.csv').iloc[2:]
 #stockMovements = pd.read_csv('sumario_15.csv').iloc[2:].set_index(['cod_neg']).join(pd.read_csv('sumario_30.csv').iloc[2:].set_index(['cod_neg']), rsuffix='30').join(pd.read_csv('sumario_60.csv').iloc[2:].set_index(['cod_neg']), rsuffix='60').join(pd.read_csv('sumario_120.csv').iloc[2:].set_index(['cod_neg']), rsuffix='120').join(pd.read_csv('sumario_365.csv').iloc[2:].set_index(['cod_neg']), rsuffix='365')
 stockMovements = stockMovements.reset_index()
