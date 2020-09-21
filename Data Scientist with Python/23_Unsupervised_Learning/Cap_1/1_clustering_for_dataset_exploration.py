@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn import datasets
-import dataset as ds
+#import dataset as ds
 
 #PRATICE 1
 #You are given an array POINTS of size 300x2, where each row gives the (x, y) co-ordinates of a point on a map
